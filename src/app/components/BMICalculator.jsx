@@ -7,6 +7,9 @@ export default function BMICalculator(){
   const [weight,setWeight] = useState("");
   const [bmi,setBmi] = useState(null);
 
+  const [message,setMessage] = useState("");
+  const [color,setColor] = useState("text-blue-500");
+
   const keisanBmi = () => {
     const h = parseFloat(height);
     const w = parseFloat(weight);
@@ -14,10 +17,27 @@ export default function BMICalculator(){
       const hm = h/100;
       const result = w/(hm*hm);
       setBmi(result.toFixed(1));
+      
+      // ここからがBMIのメッセージ
+      if (result < 18.5) {
+        setMessage("低体重（痩せ型）");
+        setColor("text-yellow-500");
+      } else if (result >= 18.5 && result < 25) {
+        setMessage("普通体重");
+        setColor("text-green-500");
+      } else if (result >= 25 && result < 30) {
+        setMessage("肥満（1度）");
+        setColor("text-orange-500");
+      } else {
+        setMessage("肥満（2度以上）");
+        setColor("text-red-500");
+      }
+
     }else{
       alert("身長と体重を正しく入力して下さい");
     }
-  }
+  };
+  
 
   const handleKeyDown = (e) => {
     if(e.key === "Enter"){
@@ -31,7 +51,7 @@ export default function BMICalculator(){
         <h1 className="text-xl font-bold mb-6 text-center">BMI計算</h1>
         <div className="flex flex-col gap-4">
           <label>
-            <span className="text-sm font-semibold">身長（cm）</span>
+            <span className="font-semibold">身長（cm）</span>
             <input
             type="number"
             value={height}
@@ -42,7 +62,7 @@ export default function BMICalculator(){
             />
           </label>
           <label>
-            <span className="text-sm font-semibold">体重（kg）</span>
+            <span className="font-semibold">体重（kg）</span>
             <input
             type="number"
             value={weight}
@@ -58,8 +78,9 @@ export default function BMICalculator(){
         </div>
       {bmi && (
         <div className="mt-8 text-center">
-          <p className="text-sm text-slate-500">計算結果</p>
-          <p className="text-4xl font-black text-blue-500">{bmi}</p>
+          <p className="text-slate-500">計算結果</p>
+          <p className={`text-5xl font-black ${color}`}>{bmi}</p>
+          <p className={`mt-2 font-bold ${color}`}>{message}</p>
         </div>
       )}
       </div>

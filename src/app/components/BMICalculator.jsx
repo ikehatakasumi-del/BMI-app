@@ -18,6 +18,13 @@ export default function BMICalculator(){
       alert("身長と体重を正しく入力して下さい");
     }
   }
+
+  const handleKeyDown = (e) => {
+    if(e.key === "Enter"){
+      keisanBmi();
+    }
+  };
+
   return(
     <div className="flex flex-col items-center bg-slate-50 p-4 text-black">
       <div className="bg-white p-6 rounded-2xl shadow-lg border border-slate-200">
@@ -30,6 +37,7 @@ export default function BMICalculator(){
             value={height}
             onChange={(e) => setHeight(e.target.value)}
             placeholder="160"
+            onKeyDown={handleKeyDown}
             className="w-full p-3 bg-slate-100 rounded-lg outline-none focus:ring-2 focus:ring-blue-400"
             />
           </label>
@@ -40,6 +48,7 @@ export default function BMICalculator(){
             value={weight}
             onChange={(e) => setWeight(e.target.value)}
             placeholder="50"
+            onKeyDown={handleKeyDown}
             className="w-full p-3 bg-slate-100 rounded-lg outline-none focus:ring-2 focus:ring-blue-400"
             />
           </label>

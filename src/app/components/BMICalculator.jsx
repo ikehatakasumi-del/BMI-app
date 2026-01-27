@@ -11,12 +11,12 @@ export default function BMICalculator(){
   const [color,setColor] = useState("text-blue-500");
 
   const keisanBmi = () => {
-    const h = parseFloat(height);
+    const h = parseFloat(height);//計算できるようにする
     const w = parseFloat(weight);
-    if(h>0 && w>0){
+    if(h>0 && w>0){ //それぞれの値が０以上なら
       const hm = h/100;
       const result = w/(hm*hm);
-      setBmi(result.toFixed(1));
+      setBmi(result.toFixed(1));//小数点第一位まで文字列（String）に変換する
       
       // ここからがBMIのメッセージ
       if (result < 18.5) {
@@ -50,7 +50,7 @@ export default function BMICalculator(){
       <div className="bg-white p-6 rounded-2xl shadow-lg border border-slate-200">
         <h1 className="text-xl font-bold mb-6 text-center">BMI計算</h1>
         <div className="flex flex-col gap-4">
-          <label>
+          <label>{/* 入力項目（フォーム）と、その説明テキストをひも付ける */}
             <span className="font-semibold">身長（cm）</span>
             <input
             type="number"
@@ -76,7 +76,8 @@ export default function BMICalculator(){
             計算する
           </button>
         </div>
-      {bmi && (
+         {/* BMIが計算されたら表示 */}
+      {bmi && ( 
         <div className="mt-8 text-center">
           <p className="text-slate-500">計算結果</p>
           <p className={`text-5xl font-black ${color}`}>{bmi}</p>
